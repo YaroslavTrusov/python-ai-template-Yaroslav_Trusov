@@ -1,21 +1,27 @@
-# Extracting aircraft with the aircraft engine to see how the engine type affects the maximum altitude, price, and total number of aircraft produced
-# Извлекаем самолеты с указанием двигателя самолета, чтобы посмотреть, как влияет тип двигателя на максимальную высоту, цену и общее количество произведенных самолетов
-SELECT
+# Извлекаем самолёты с указанием двигателя, максимальной высоты, цены, количества произведённых,
+# страны происхождения (только метка), даты первого полёта и производителя (только метка)
+SELECT DISTINCT
   ?aircraft ?aircraftLabel
   ?engine ?engineLabel
   ?maxAltitude
   ?price
   ?totalProduced
+  ?firstFlight
+  ?countryLabel
+  ?manufacturerLabel
 WHERE {
   VALUES ?aircraftType { wd:Q15056993 wd:Q11436 }  # Семейство самолётов или модель самолёта
 
-  ?aircraft wdt:P31/wdt:P279* ?aircraftType;# Экземпляр или подкласс "семейства" или "модели"
+  ?aircraft wdt:P31/wdt:P279* ?aircraftType;
             wdt:P516 ?engine;               # Двигатель (powered by)
-            wdt:P1092 ?totalProduced.       # Количество произведённых самолётов (total produced)
+            wdt:P1092 ?totalProduced.       # Количество произведённых самолётов
 
-  OPTIONAL { ?aircraft wdt:P2254 ?maxAltitude. } # Максимальная высота (опционально)
-  OPTIONAL { ?aircraft wdt:P2284 ?price. }       # Стоимость (опционально)
+  OPTIONAL { ?aircraft wdt:P2254 ?maxAltitude. } # Максимальная высота
+  OPTIONAL { ?aircraft wdt:P2284 ?price. }       # Стоимость
+  OPTIONAL { ?aircraft wdt:P495 ?country. }      # Страна происхождения (только метка)
+  OPTIONAL { ?aircraft wdt:P606 ?firstFlight. }  # Дата первого полёта
+  OPTIONAL { ?aircraft wdt:P176 ?manufacturer. } # Производитель (только метка)
 
-  SERVICE wikibase:label {bd:serviceParam wikibase:language "ru,en"}
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "ru,en". }
 }
 ORDER BY DESC(?totalProduced)
