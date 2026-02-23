@@ -1,0 +1,21 @@
+# Поиск двигателей, используемых в самолётах, с обязательным производителем и страной (только метки)
+#Search for engines used in aircraft, with mandatory manufacturer and country (labels only)
+SELECT DISTINCT
+  ?engine ?engineLabel
+  ?manufacturerLabel
+  ?countryLabel
+  ?basedOnLabel
+  ?cylinders
+  ?fuelOrCoolantLabel
+WHERE {
+  ?aircraft wdt:P516 ?engine.  # Двигатель используется в самолёте (powered by)
+  ?engine wdt:P176 ?manufacturer.  # Производитель двигателя (обязательно)
+  ?manufacturer wdt:P17 ?country.  # Страна производителя (обязательно)
+
+  OPTIONAL { ?engine wdt:P144 ?basedOn. }       # Основа двигателя (опционально)
+  OPTIONAL { ?engine wdt:P1100 ?cylinders. }    # Число цилиндров (опционально)
+  OPTIONAL { ?engine wdt:P588 ?fuelOrCoolant. } # Использует топливо/охлаждающую жидкость (опционально)
+
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "ru,en". }
+}
+ORDER BY ?engineLabel
