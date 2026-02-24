@@ -1,5 +1,5 @@
-# Извлекаем самолёты с указанием двигателя, максимальной высоты, цены, количества произведённых,
-# страны происхождения (только метка), даты первого полёта и производителя (только метка)
+# Извлекаем самолёты с указанием двигателя, максимальной высоты, цены, количества произведённых самолетов, страны происхождения, дыты первого полета и производителя
+# We extract aircraft with engine, maximum altitude, price, number of aircraft produced, country of origin, date of first flight, and manufacturer
 SELECT DISTINCT
   ?aircraft ?aircraftLabel
   ?engine ?engineLabel
