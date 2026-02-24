@@ -1,5 +1,5 @@
-# Поиск двигателей, используемых в самолётах, с обязательным производителем и страной (только метки)
-#Search for engines used in aircraft, with mandatory manufacturer and country (labels only)
+# Поиск двигателей, используемых в самолётах, с обязательным производителем и страной 
+#Search for engines used in aircraft, with mandatory manufacturer and country 
 SELECT DISTINCT
   ?engine ?engineLabel
   ?manufacturerLabel
